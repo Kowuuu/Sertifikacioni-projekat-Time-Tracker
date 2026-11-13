@@ -1,5 +1,5 @@
-const bcrypt = require('bcrypt');
-const prisma = require('../prismaClient');
+//const bcrypt = require('bcrypt');
+//const prisma = require('../prismaClient');
 const jwt = require('jsonwebtoken');
 const {tasks}=require('../models/timeTracker');
 
