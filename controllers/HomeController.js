@@ -12,7 +12,7 @@ module.exports = {
         }
 
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const decoded = jwt.verify(token, "your_jwt_secret_key"); //process.env.JWT_SECRET
             req.user = decoded;
             res.locals.user = decoded;
             return next();
@@ -31,7 +31,7 @@ module.exports = {
             return res.status(401).send('Access denied. No token provided.');
         }
         try {
-            const decoded = jwt.verify(token, process.env.JWT_SECRET);
+            const decoded = jwt.verify(token, "your_jwt_secret_key");
             req.user = decoded;
             res.locals.user = decoded;
             next();
@@ -100,7 +100,7 @@ module.exports = {
             maxAge: 15 * 60 * 1000,
             path: '/'
         });
-        const token = jwt.sign({ userId: email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: email }, "your_jwt_secret_key", { expiresIn: '1h' });
 
         res.cookie('accessToken', token, {
             httpOnly: true,
@@ -134,7 +134,7 @@ module.exports = {
         if (!user) {
             return res.status(401).send('Invalid email or password');
         }
-        const token = jwt.sign({ userId: email }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        const token = jwt.sign({ userId: email }, "your_jwt_secret_key", { expiresIn: '1h' });
 
         res.cookie('accessToken', token, {
             httpOnly: true,
