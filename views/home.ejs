@@ -1,0 +1,7 @@
+<%- include('navigation') %>
+<% if (currentUserEmail) { %>
+<%- include('tasks') %>
+<% } else { %>
+<p>Please log in to view your tasks.</p>
+<% } %>
+<%- include('footer') %>

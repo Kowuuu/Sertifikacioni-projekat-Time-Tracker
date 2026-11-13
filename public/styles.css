@@ -1,0 +1,722 @@
+nav ul {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    list-style: none;
+    margin: 0;
+    padding: 1rem;
+}
+
+.database-button {
+    margin-left: auto;
+}
+
+.database-button form {
+    margin: 0;
+}
+
+.database-button button {
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f4f4;
+    margin: 0;
+    padding: 30px;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+}
+
+section {
+    margin-top: 35px;
+}
+
+#task-form {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    color: white;
+}
+
+button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+#task-form button {
+    background: #333;
+}
+
+.task {
+    background: white;
+    padding: 20px;
+    margin: 15px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px #ddd;
+}
+
+.timer {
+    font-family: monospace;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+}
+
+.start {
+    background: #28a745;
+}
+
+.stop {
+    background: #dc3545;
+}
+
+.delete {
+    background: #555;
+}
+
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.stat {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.stat p {
+    font-size: 24px;
+    font-weight: bold;
+    font-family: monospace;
+}
+
+@media (max-width: 550px) {
+    .statistics {
+        grid-template-columns: 1fr;
+    }
+}
+
+
+
+
+
+/* ============ Theme tokens ============ */
+:root {
+    --bg: #0f1220;
+    --surface: #171a2b;
+    --surface-2: #1f2338;
+    --border: #2b3050;
+    --text: #e8eaf6;
+    --muted: #9aa0c3;
+    --accent: #6c8cff;
+    --accent-hover: #869dff;
+    --danger: #ff6b6b;
+    --radius: 10px;
+    --shadow: 0 8px 24px rgba(0, 0, 0, .35);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+main { flex: 1; width: 100%; max-width: 960px; margin: 0 auto; padding: 2rem 1rem; }
+
+/* ============ Navigation ============ */
+nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(23, 26, 43, .85);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border);
+}
+
+nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: .25rem;
+    margin: 0 auto;
+    padding: .5rem 1rem;
+    max-width: 960px;
+    list-style: none;
+}
+
+nav li { display: flex; }
+
+nav a {
+    display: block;
+    padding: .55rem .9rem;
+    border-radius: var(--radius);
+    color: var(--muted);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color .15s ease, background-color .15s ease;
+}
+
+nav a:hover,
+nav a:focus-visible {
+    color: var(--text);
+    background: var(--surface-2);
+    outline: none;
+}
+
+nav a[aria-current="page"] { color: var(--accent); }
+
+/* The Database button lives inside a form — reset it to look like a nav link */
+.database-button form { margin: 0; }
+
+nav button[type="submit"] {
+    padding: .55rem .9rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: color .15s ease, background-color .15s ease, border-color .15s ease;
+}
+
+nav button[type="submit"]:hover {
+    color: var(--text);
+    background: var(--surface-2);
+    border-color: var(--accent);
+}
+
+/* Push the last item (Database) to the right edge */
+nav ul li:last-child { margin-left: auto; }
+
+/* ============ Auth pages (register / login) ============ */
+.auth-page {
+    display: grid;
+    place-items: center;
+    padding: 3rem 1rem;
+}
+
+form[action="/register"],
+form[action="/login"] {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.6);
+    box-shadow: var(--shadow);
+}
+
+form[action="/register"]::before,
+form[action="/login"]::before {
+    content: attr(data-title);
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+}
+
+form input {
+    width: 100%;
+    padding: .75rem .9rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font: inherit;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+form input::placeholder { color: var(--muted); }
+
+form input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(108, 140, 255, .25);
+}
+
+/* Red ring when a required field is submitted empty */
+form input:invalid:not(:placeholder-shown) { border-color: var(--danger); }
+
+form button[type="submit"] {
+    margin-top: .25rem;
+    padding: .8rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .15s ease, transform .05s ease;
+}
+
+form button[type="submit"]:hover { background: var(--accent-hover); }
+form button[type="submit"]:active { transform: translateY(1px); }
+
+/* ============ Footer ============ */
+footer {
+    margin-top: auto;
+    padding: 1.25rem 1rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .9rem;
+}
+
+/* ============ Small screens ============ */
+@media (max-width: 560px) {
+    nav ul { justify-content: center; }
+    nav ul li:last-child { margin-left: 0; }
+}
+
+
+
+
+/* ============ Tokens ============ */
+:root {
+    --bg: #0c0e16;
+    --surface: #141726;
+    --surface-2: #1c2036;
+    --border: #262b44;
+    --text: #e4e6f0;
+    --muted: #8a90b0;
+    --accent: #6c8cff;
+    --accent-glow: rgba(108, 140, 255, .15);
+    --danger: #ff6b6b;
+    --success: #50fa7b;
+    --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+main {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+}
+
+/* ============ Task card ============ */
+.task {
+    display: grid;
+    gap: .6rem;
+    padding: 1rem 1.25rem;
+    margin-bottom: .75rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+}
+
+/* — Task name (h3) — */
+.task h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text);           /* force visible text */
+}
+
+/* — Timer (p.timer) — */
+.task .timer {
+    margin: 0;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: .04em;
+    color: var(--accent);         /* blue so it pops against dark bg */
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============ Controls ============ */
+.task .controls {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+}
+
+.task .controls button {
+    padding: .45rem .85rem;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    background: var(--surface-2);
+    color: var(--text);
+    font: inherit;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color .15s ease, border-color .15s ease, color .15s ease;
+}
+
+.task .controls .start:hover {
+    border-color: var(--success);
+    color: var(--success);
+}
+
+.task .controls .stop:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.task .controls .delete:hover {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+/* ============ Time Statistics ============ */
+.stats-section {
+    margin-top: 1.5rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: .75rem;
+}
+
+.stat-card {
+    padding: 1rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+}
+
+.stat-card .stat-label {
+    display: block;
+    margin-bottom: .35rem;
+    font-size: .8rem;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--muted);
+}
+
+.stat-card .stat-value {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;
+}
+
+/* ============ Accessibility ============ */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+
+
+
+
+
+/* ============ Time Statistics ============ */
+.statistics {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.6);
+}
+
+.statistics h2 {
+    margin: 0 0 1.25rem;
+    font-size: 1.3rem;
+    color: var(--text);
+}
+
+/* Cards laid out in a responsive grid */
+.statistics .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .4rem;
+    padding: 1.1rem .75rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-align: center;
+    transition: transform .15s ease, border-color .15s ease;
+}
+
+.statistics .stat:hover {
+    transform: translateY(-2px);
+    border-color: var(--accent);
+}
+
+/* — Stat label (h3) — */
+.statistics .stat h3 {
+    margin: 0;
+    font-size: .8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--muted);
+}
+
+/* — Stat value (p) — the big readable timer — */
+.statistics .stat p {
+    margin: 0;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    font-variant-numeric: tabular-nums;   /* keeps digits from jittering */
+}
+
+/* Highlight the "Today" value so it stands out */
+#daily-time { color: var(--accent); }
+
+/* ============ Responsive grid wrapper ============ */
+/* Wraps the four .stat divs without touching your HTML */
+.statistics {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: .9rem;
+    align-items: stretch;
+}
+
+/* Let the <h2> span the full width above the cards */
+.statistics h2 {
+    grid-column: 1 / -1;
+}
+
+
+
+
+/* ============ About Page ============ */
+.container#about {
+    max-width: 720px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.6);
+}
+
+.container#about h1 {
+    margin: 0 0 1.25rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+}
+
+.container#about p {
+    margin: 0 0 1rem;
+    line-height: 1.7;
+    color: var(--text);
+    font-size: .95rem;
+}
+
+/* Last paragraph gets no bottom margin */
+.container#about p:last-child { margin-bottom: 0; }
+
+/* ============ Tech badges (optional polish) ============ */
+/* If you ever wrap the tech names in <code> or <span>, they'll pop */
+.container#about code,
+.container#about strong {
+    color: var(--accent);
+    font-weight: 600;
+}
+
+
+
+
+
+
+
+
+/* ============ Tokens ============ */
+:root {
+    --bg: #0c0e16;
+    --surface: #141726;
+    --surface-2: #1c2036;
+    --border: #262b44;
+    --text: #e4e6f0;
+    --muted: #8a90b0;
+    --accent: #6c8cff;
+    --accent-glow: rgba(108, 140, 255, .15);
+    --danger: #ff6b6b;
+    --success: #50fa7b;
+    --radius: 10px;
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+}
+
+main { flex: 1; }
+
+/* ============ Auth pages (centered card) ============ */
+.auth-page,
+.login-page {
+    display: grid;
+    place-items: center;
+    padding: 3rem 1rem;
+}
+
+.auth-page form,
+.login-page form {
+    width: 100%;
+    max-width: 380px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 2rem;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 1.6);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, .4);
+}
+
+/* Title above the form (set via JS or inline style) */
+.auth-page form::before {
+    content: "Create Account";
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    margin-bottom: .25rem;
+}
+
+.login-page form::before {
+    content: "Welcome Back";
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+    display: block;
+    margin-bottom: .25rem;
+}
+
+/* ============ Inputs ============ */
+.auth-page input,
+.login-page input {
+    width: 100%;
+    padding: .75rem .9rem;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font: inherit;
+    font-size: .95rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.auth-page input::placeholder,
+.login-page input::placeholder {
+    color: var(--muted);
+}
+
+.auth-page input:focus,
+.login-page input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-glow);
+}
+
+/* Red border when required field is empty on submit */
+.auth-page input:invalid:not(:placeholder-shown),
+.login-page input:invalid:not(:placeholder-shown) {
+    border-color: var(--danger);
+    box-shadow: 0 0 0 3px rgba(255, 107, 107, .15);
+}
+
+/* ============ Submit button ============ */
+.auth-page button[type="submit"],
+.login-page button[type="submit"] {
+    margin-top: .25rem;
+    padding: .8rem 1rem;
+    border: none;
+    border-radius: var(--radius);
+    background: var(--accent);
+    color: #fff;
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .15s ease, transform .05s ease;
+}
+
+.auth-page button[type="submit"]:hover,
+.login-page button[type="submit"]:hover {
+    background: var(--accent-hover, #869dff);
+}
+
+.auth-page button[type="submit"]:active,
+.login-page button[type="submit"]:active {
+    transform: translateY(1px);
+}
+
+/* ============ Footer ============ */
+footer {
+    margin-top: auto;
+    padding: 1.25rem 1rem;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    text-align: center;
+}
+
+footer p {
+    margin: 0;
+    color: var(--muted);
+    font-size: .85rem;
+}
+
+/* ============ Accessibility ============ */
+*:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+.auth-page form h2,
+.login-page form h2 {
+    margin: 0 0 .25rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-align: center;
+}

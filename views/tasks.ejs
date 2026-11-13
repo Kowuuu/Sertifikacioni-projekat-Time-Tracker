@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Tracker</title>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<main class="container">
+    <h1>Task Tracker</h1>
+
+    <form id="task-form">
+        <input type="text" id="task-name" placeholder="Task title" required>
+        <button type="submit">Add Task</button>
+    </form>
+
+    <section>
+        <h2>My Tasks</h2>
+        <div id="tasks-container"></div>
+    </section>
+
+    <section class="statistics">
+        <h2>Time Statistics</h2>
+
+        <div class="stat">
+            <h3>Today</h3>
+            <p id="daily-time">00:00:00</p>
+        </div>
+        <div class="stat">
+            <h3>Last 7 Days</h3>
+            <p id="weekly-time">00:00:00</p>
+        </div>
+        <div class="stat">
+            <h3>This Month</h3>
+            <p id="monthly-time">00:00:00</p>
+        </div>
+        <div class="stat">
+            <h3>Average Per Task</h3>
+            <p id="average-time">00:00:00</p>
+        </div>
+    </section>
+</main>
+
+<script>
+const currentUserEmail=<%- JSON.stringify(currentUserEmail) %>;
+localStorage.setItem('currentUserEmail', currentUserEmail);
+</script>
+<script src="/updater.js"></script>
+</body>
+</html>

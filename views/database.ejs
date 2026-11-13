@@ -1,0 +1,17 @@
+<%- include('navigation') %>
+<main>
+    <h1>Database users</h1>
+    <% if (users.length === 0) { %>
+        <p>No users in the database yet.</p>
+    <% } else { %>
+        <ul>
+            <% users.forEach(user => { %>
+                <li>
+                    <strong><%= user.name || 'User' %></strong>
+                    &mdash; <%= user.email %>
+                    &mdash; <%= user.createdAt ? new Date(user.createdAt).toLocaleString() : 'N/A' %>
+                </li>
+            <% }) %>
+        </ul>
+    <% } %>
+</main>

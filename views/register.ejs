@@ -1,0 +1,28 @@
+<div class="auth-page">
+<form id="register-form" method="post" action="/register">
+    <input type="email" name="email" placeholder="Email" required />
+    <input type="password" name="password" placeholder="Password" />
+    <input type="password" name="confirmPassword" placeholder="Confirm Password" />
+    <button type="submit">Register</button>
+</form>
+</div>
+
+<script>
+    document.getElementById('register-form').addEventListener('submit', function(event) {
+        const password = this.password.value;
+        const confirmPassword = this.confirmPassword.value;
+
+        if (password !== confirmPassword) {
+            event.preventDefault();
+            alert('Passwords do not match!');
+        }
+    });
+    const form = document.getElementById("register-form");
+    form.addEventListener("submit", function () {
+        const email = form.email.value;
+        const password = form.password.value;
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
+        users.push({ email, password, createdAt: new Date().toISOString() });
+        localStorage.setItem('users', JSON.stringify(users));
+    });
+</script>
